@@ -1,0 +1,17 @@
+{
+    "lang": "zh-cn",
+    "name": "Voice Emulator",
+    "short_name": "VE",
+    "description": "A simple voice emulator.",
+    "start_url": "/",
+    "background_color": "white",
+    "theme_color": "white",
+    "orientation": "any",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "images/icon.png",
+            "sizes": "200x200"
+        }
+    ]
+}

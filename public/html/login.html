@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <title>登录</title>
+    
+</head>
+
+<body>
+    <h1>请登录</h1>
+    <form action="/users/login" method="post" enctype="application/json" id="loginForm">
+        <label>邮箱/用户名
+        <input type="text" maxlength="40" id="mail" name="mail" pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" /><br />
+        <!-- 完整的邮箱域名，仅支持字母、数字下划线、减号和点 -->
+        </label>
+
+        <label>密码
+        <input type="password" maxlength="18" id="password" name="ps" pattern="^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,18}$" /><br />
+        <!-- 6-18位，必须包含字母、数字和特殊字符 -->
+        </label>
+
+        <input type="submit" id="login" value="登录"/>
+
+    </form>
+
+
+    <script src="../js/checkNet.js"></script>
+    <script src="../js/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <title>注册</title>
+    
+</head>
+
+<body>
+    <h1>请注册</h1>
+    <form action="/users/reg" method="post" enctype="application/json" id="registerForm">
+        <label>邮箱
+        <input type="text" maxlength="40" id="mail" name="mail" pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" />
+        <!-- 完整的邮箱域名，仅支持字母、数字下划线、减号和点 -->
+        </label>
+
+        <input type="submit" formaction="/users/getMailCode" formmethod="post" id="getMailCode" value="获取验证码" />
+        <br />
+
+        <label>密码
+        <input type="password" maxlength="18" id="password" name="ps" pattern="^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,18}$" />
+        <!-- 6-18位，必须包含字母、数字和特殊字符的至少两种 -->
+        </label>
+        <br />
+        
+        <label>验证码
+        <input type="text" name="code" id="code" pattern="[0-9]{6}" />
+        <!-- 6位数字 -->
+        </label>
+        <br />
+        
+
+        <input type="submit" id="register" value="注册"/>
+
+    </form>
+
+
+    <script src="../js/checkNet.js"></script>
+    <script src="../js/register.js"></script>
+</body>
+
+</html>
