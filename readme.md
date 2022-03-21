@@ -1,6 +1,6 @@
 ## 已使用的开源项目  
 - nodejs  
-- pwabuilder
+- pwabuilder  
 - nodemailer  
 - mongoDB  
 - mongoose  
@@ -13,6 +13,7 @@
 - 由于service worker体系只能工作在https协议下（本地调试可以用http）因此密码等信息可以明文传输，无需加密
 - 默认开放端口为3000，如需更改需要进入./bin/www内修改  
 - 由于前端传来的信息并不一定可靠，注册/登录的表单信息是否合法还需要在后端进一步验证
+- https://www.expressjs.com.cn/starter/examples.html
 
 ## 项目结构
 ├─bin   二进制文件  
@@ -34,14 +35,16 @@
 - [ ] 后端验证表单信息合法性  
 - [ ] 前端CSS配置  
 - [ ] 后端验证码存储到数据库  
-- [ ] 前端表单非法时给用户的提示信息  
+- [ ] 前端表单非法时给用户的提示信息(配合ejs更简单)  
 - [ ] 服务器消息推送  
-- [ ] 客户端service worker接收消息推送  
+- [ ] 客户端service worker接收消息推送(https://docs.microsoft.com/zh-cn/microsoft-edge/progressive-web-apps-chromium/how-to/notifications-badges)  
 - [ ] service worker发出本地通知  
 - [ ] 通过路由设置实现验证cookie后不同情况下的页面重定向  
 - [ ] 修改服务器回应POST请求回传信息的方式，目前会导致页面跳转
 - [x] 验证码5分钟有效期设置
 - [ ] 细化userModel的模型
-- [x] 设置专用邮箱发送验证码
+- [x] 设置专用邮箱发送验证码(with ejs)
 - [ ] 设置图片验证码
 - [ ] 测试login的API
+- [ ] 添加404和500错误的处理(https://www.expressjs.com.cn/en/starter/faq.html; https://github.com/expressjs/express/tree/master/examples/error-pages)
+- [ ] 组织路由结构(https://www.expressjs.com.cn/en/starter/faq.html)
