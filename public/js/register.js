@@ -4,7 +4,11 @@ let register=document.getElementById("register");
 let mail=document.getElementById("mail");
 let password=document.getElementById("password");
 let code=document.getElementById("code");
+let hidden=document.getElementById("hidden-frame");
 
+hidden.addEventListener("load",(event)=>{
+    console.log(hidden.contentWindow.document.body.innerHTML);
+})
 
 //按下获取验证码按钮
 getMailCode.addEventListener("click",(event)=>{

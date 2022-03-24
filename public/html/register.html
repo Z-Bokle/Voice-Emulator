@@ -8,7 +8,7 @@
 
 <body>
     <h1>请注册</h1>
-    <form action="/users/reg" method="post" enctype="application/json" id="registerForm">
+    <form action="/users/reg" method="post" enctype="application/json" id="registerForm" target="hidden-frame">
         <label>邮箱
         <input type="text" maxlength="40" id="mail" name="mail" pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" />
         <!-- 完整的邮箱域名，仅支持字母、数字下划线、减号和点 -->
@@ -29,6 +29,7 @@
         </label>
         <br />
         
+        <iframe id="hidden-frame" name="hidden-frame" style="display: none;"></iframe>
 
         <input type="submit" id="register" value="注册"/>
 

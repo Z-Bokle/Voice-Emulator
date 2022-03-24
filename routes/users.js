@@ -26,7 +26,21 @@ router.get('/checkNet',function(req,res,next){
   res.status(200).send('ok');//用于ajax同步检查网络连接情况
 })
 
-router.get('/', function(req, res, next) {
+router.get('/',function(req,res,next){
+  res.redirect('/users/login');//重定向到登录页
+})
+
+router.get('/login', function(req, res, next) {
+	res.writeHead(200,{'Content-Type':'text/html'});
+	fs.readFile('./public/html/login.html','utf-8',function(err,data){
+		if(err){
+			throw err ;
+		}
+		res.end(data);//向浏览器返回文件并结束链接
+	});
+});
+
+router.get('/register',function(req, res, next) {
 	res.writeHead(200,{'Content-Type':'text/html'});
 	fs.readFile('./public/html/register.html','utf-8',function(err,data){
 		if(err){
@@ -35,6 +49,7 @@ router.get('/', function(req, res, next) {
 		res.end(data);//向浏览器返回文件并结束链接
 	});
 });
+
 
 router.post('/reg', (req, res) => {
   // 获取数据
@@ -70,7 +85,10 @@ router.post('/reg', (req, res) => {
       if (!data.length) {
         // 用户名不存在 可以注册
         done = true;
-        res.send({ err: 0, msg: '注册成功'})
+        //设置并发送cookie，同时发送回应
+        res.cookie("mail",mail.toString(),{maxAge:259200000,signed:true,httpOnly:true}).send({ err: 0, msg: '注册成功'});//过期时间为3天后 仅能在服务端读取 加密
+        console.log(req.signedCookies);
+
         return User.insertMany({ mail: mail, ps: ps})//后续不再设置Promise.then()
       } 
       else {
@@ -110,7 +128,10 @@ router.post('/login', (req, res) => {
     User.find({ mail, ps })
     .then((data) => {
       if (data.length > 0) {
-        res.send({err: 0, msg: '登录成功'})
+        //设置并发送cookie，同时发送回应
+        //设置cookie的请求包含在http请求头部中，send(body)后将无法设置
+        res.cookie("mail",mail.toString(),{maxAge:259200000,signed:true,httpOnly:true}).send({ err: 0, msg: '登录成功'});//过期时间为3天后 仅能在服务端读取 加密
+        console.log(req.signedCookies);
       } 
       else {
         res.send({err: -2, msg: '用户名或者密码不正确'})
