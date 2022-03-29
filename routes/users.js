@@ -5,8 +5,14 @@ const codeModel = require('../public/database/model/codeModel')//引入验证码
 const mailSend = require('../public/sendmail')
 
 
-var fs=require('fs');
+router.get('/checkNet',function(req,res,next){
+  res.status(200).send('ok');//用于ajax同步检查网络连接情况
+})
 
+
+router.get('/', function(req, res, next) {
+  res.render("users");
+});
 
 
 /**
@@ -21,35 +27,6 @@ var fs=require('fs');
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-
-router.get('/checkNet',function(req,res,next){
-  res.status(200).send('ok');//用于ajax同步检查网络连接情况
-})
-
-router.get('/',function(req,res,next){
-  res.redirect('/users/login');//重定向到登录页
-})
-
-router.get('/login', function(req, res, next) {
-	res.writeHead(200,{'Content-Type':'text/html'});
-	fs.readFile('./public/html/login.html','utf-8',function(err,data){
-		if(err){
-			throw err ;
-		}
-		res.end(data);//向浏览器返回文件并结束链接
-	});
-});
-
-router.get('/register',function(req, res, next) {
-	res.writeHead(200,{'Content-Type':'text/html'});
-	fs.readFile('./public/html/register.html','utf-8',function(err,data){
-		if(err){
-			throw err ;
-		}
-		res.end(data);//向浏览器返回文件并结束链接
-	});
-});
-
 
 router.post('/reg', (req, res) => {
   // 获取数据

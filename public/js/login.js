@@ -1,14 +1,14 @@
 
 let login=document.getElementById("login");
-let mail=document.getElementById("mail");
-let password=document.getElementById("password");
+let login_mail=document.getElementById("login_mail");
+let login_password=document.getElementById("login_password");
 let form=document.getElementById("loginForm");
 
 
 //按下登录按钮
-register.addEventListener("click",(event)=>{
+login.addEventListener("click",(event)=>{
     console.log("login");
-    if(!mail.validity.valid){//邮箱
+    if(!login_mail.validity.valid){//邮箱
         console.log("请输入正确的邮箱");
         event.preventDefault();        
     }

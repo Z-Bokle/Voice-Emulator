@@ -1,8 +1,8 @@
 
 let getMailCode=document.getElementById("getMailCode");
 let register=document.getElementById("register");
-let mail=document.getElementById("mail");
-let password=document.getElementById("password");
+let reg_mail=document.getElementById("reg_mail");
+let reg_password=document.getElementById("reg_password");
 let code=document.getElementById("code");
 let hidden=document.getElementById("hidden-frame");
 
@@ -13,10 +13,10 @@ hidden.addEventListener("load",(event)=>{
 //按下获取验证码按钮
 getMailCode.addEventListener("click",(event)=>{
     console.log("getMailCode");
-    if(!mail.validity.valid){//前端检验表单合法性
-        if(mail.validity.valueMissing) console.log("邮箱不能为空");
-        if(mail.validity.tooLong) console.log("邮箱长度过长");
-        if(mail.validity.patternMismatch) console.log("不符合正确的邮箱格式");
+    if(!reg_mail.validity.valid){//前端检验表单合法性
+        if(reg_mail.validity.valueMissing) console.log("邮箱不能为空");
+        if(reg_mail.validity.tooLong) console.log("邮箱长度过长");
+        if(reg_mail.validity.patternMismatch) console.log("不符合正确的邮箱格式");
         event.preventDefault();        
     }
     if(checkNet()!==true)
@@ -29,15 +29,15 @@ getMailCode.addEventListener("click",(event)=>{
 //按下注册按钮
 register.addEventListener("click",(event)=>{
     console.log("register");
-    if(!mail.validity.valid){//邮箱
-        if(mail.validity.valueMissing) console.log("邮箱不能为空");
-        if(mail.validity.tooLong) console.log("邮箱长度过长");
-        if(mail.validity.patternMismatch) console.log("不符合正确的邮箱格式");
+    if(!reg_mail.validity.valid){//邮箱
+        if(reg_mail.validity.valueMissing) console.log("邮箱不能为空");
+        if(reg_mail.validity.tooLong) console.log("邮箱长度过长");
+        if(reg_mail.validity.patternMismatch) console.log("不符合正确的邮箱格式");
         event.preventDefault();        
     }
-    if(!password.validity.valid){//密码
-        if(password.validity.valueMissing) console.log("密码为空");
-        if(password.validity.patternMismatch) console.log("密码不符合要求");
+    if(!reg_password.validity.valid){//密码
+        if(reg_password.validity.valueMissing) console.log("密码为空");
+        if(reg_password.validity.patternMismatch) console.log("密码不符合要求");
         event.preventDefault();  
     }
     if(!code.validity.valid){//验证码
