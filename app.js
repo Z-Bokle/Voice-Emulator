@@ -10,6 +10,8 @@ var ejs = require("ejs");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var toolsRouter = require('./routes/tools')
+var apiRouter = require('./routes/api')
 
 var app = express();
 
@@ -27,6 +29,8 @@ app.use(bodyParser.json()) // 这三行为解析接口传参
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/tools', toolsRouter);
+app.use('/api',apiRouter);
 
 module.exports = app;
 

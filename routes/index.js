@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
   if(req.signedCookies.mail)
   login_status="欢迎您," + req.signedCookies.mail;
 
-  res.render('index', {login_status:login_status});
+  res.render('index', {login_status:login_status,login:req.signedCookies.mail});
 });
 
 module.exports = router;

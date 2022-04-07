@@ -19,6 +19,9 @@
 <a href="/users">注册/登录</a>
 
 <p id="login_status"><span><%= login_status %></span></p>
+<% if (login) { %>
+    <a href="/tools">工具箱</a>
+<% } %>
 <button id="notification">测试通知</button>
 <script src="/js/notification.js"></script>
 </body>
