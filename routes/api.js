@@ -8,6 +8,7 @@ router.get('/synthesizers', function (req, res, next) {
     //改成对应的synthesizer模型及其路径
 });
 
+//调用声音合成api
 router.post('/MockingBird',function(req, res, next){
     console.log(req.body)
 })
