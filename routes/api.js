@@ -1,7 +1,11 @@
 var express = require('express');
-var cookieParser = require('cookie-parser');
+const multipart = require('connect-multiparty');
 var router = express.Router();
+const fs = require('fs');
 
+const multipartyMiddleware = multipart();
+
+router.use(multipart({uploadDir:'./upload' }))
 
 router.get('/synthesizers', function (req, res, next) {
     res.send([{name:"111",path:"222"},{name:"333",path:"444"}])
@@ -9,8 +13,19 @@ router.get('/synthesizers', function (req, res, next) {
 });
 
 //调用声音合成api
-router.post('/MockingBird',function(req, res, next){
-    console.log(req.body)
+router.post('/MockingBird',multipartyMiddleware,function(req, res, next){
+    let formData = req.body
+    let fileData = req.files.file
+    let filePath = fileData.path
+    let size = fileData.size
+    //包含text和file两个字段
+    console.log(formData)
+    console.log(filePath,size)
+    fs.rename(filePath,filePath + '.wav',(err)=>{
+        if(err)
+        console.error(err)
+    })
+    filePath=filePath + '.wav'
 })
 
 module.exports = router;
