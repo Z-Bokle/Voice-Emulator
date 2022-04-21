@@ -3,6 +3,10 @@ const multipart = require('connect-multiparty');
 var router = express.Router();
 const fs = require('fs');
 const path = require('path')
+const util = require('util')
+
+const P_readdir = util.promisify(fs.readdir)
+const P_stat = util.promisify(fs.stat)
 
 const multipartyMiddleware = multipart();
 //一个用于解析formData对象的第三方中间件
@@ -14,31 +18,29 @@ let dir = path.resolve("") //存放模型的路径
 
 router.get('/synthesizers', function (req, res, next) {
     let list = new Array() //存放模型信息
-    fs.readdir(dir,(err,files) => {
-        //用fs模块读取路径
-        if(err) console.error(err)
-        else{
-            files.forEach((fileName) => {
-                //遍历目录下的项目，可能为文件夹或文件
-                let filePath = path.join(dir,fileName)
-                fs.stat(filePath,(err,stat) => {
-                    if(err) console.error(err)
-                    else{
-                        if(stat.isFile() && fileName.substring(fileName.length-3,3) == ".pt")
-                        {
-                            //是文件且文件名结尾为.pt
-                            list.push({
-                                path: filePath,
-                                name: fileName
-                            })
-                            console.log(`检测到模型${fileName},路径为${filePath}`)                            
-                        }
-                    }
-                }) 
-            })
+    (async () => {
+        try {
+            let files = await P_readdir(dir) //用fs模块读取路径
+            for(let i = 0; i < files.length; i++)
+            {
+                let fileName = files[i]
+                let filePath = path.join(dir, fileName)
+                let stat = await P_stat(filePath)
+                if(stat.isFile)
+                {
+                    list.push({
+                        path: filePath,
+                        name: fileName
+                    })
+                    console.log(`检测到模型${fileName},路径为${filePath}`)
+                }
+            }
+        } 
+        catch (err) {
+            console.error(err)
         }
-    })
-    //这里回调函数太多了，重构成为基于Promise对象的逻辑会更简洁
+    })()
+
     res.send(list)
     //返回包含synthesizer模型及其路径的一个Array
 })
