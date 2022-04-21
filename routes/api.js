@@ -14,10 +14,12 @@ const multipartyMiddleware = multipart();
 router.use(multipart({uploadDir:'./upload' }))
 //设置上传的音频文件的存放路径
 
+const spawn = require('child_process').spawn
+
 let dir = path.resolve("") //存放模型的路径
 
 router.get('/synthesizers', function (req, res, next) {
-    let list = new Array() //存放模型信息
+    let list = new Array(); //存放模型信息
     (async () => {
         try {
             let files = await P_readdir(dir) //用fs模块读取路径
@@ -26,7 +28,7 @@ router.get('/synthesizers', function (req, res, next) {
                 let fileName = files[i]
                 let filePath = path.join(dir, fileName)
                 let stat = await P_stat(filePath)
-                if(stat.isFile)
+                if(stat.isFile())
                 {
                     list.push({
                         path: filePath,
@@ -39,9 +41,10 @@ router.get('/synthesizers', function (req, res, next) {
         catch (err) {
             console.error(err)
         }
+        res.send(list)
     })()
 
-    res.send(list)
+    
     //返回包含synthesizer模型及其路径的一个Array
 })
 
@@ -61,6 +64,24 @@ router.post('/MockingBird',multipartyMiddleware,function(req, res, next){
         console.error(err)
     })
     filePath=filePath + '.wav'
+
+    let pyData = spawn('python3',
+        ['/py/operate.py',
+        formData['synt_path'],
+        filePath,
+        filePath,
+        formData['text'],
+        formData['vocoder']
+    ])
+
+    let py
+
+    pyData.stdout.on('data',(res) => {
+        py = res.toString()
+        console.log(py)
+    })
 })
+
+    
 
 module.exports = router;
